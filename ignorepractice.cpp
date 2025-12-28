@@ -86,32 +86,33 @@ int main() {
         //std::cout << "this is the x result: "<< random_x_loop_result << std::endl;
         //std::cout << "this is the y result: " << random_y_loop_result << std::endl;
 
-        for (int j = 0; j < 5; j++) {
-            double z_ackley_result = ackleyfunctioncalculator(random_x_loop_result, random_y_loop_result);
-            std::cout << "this is the final z result: " << z_ackley_result << std::endl;
-            struct_computed_xyz_value_storage row;
-            row.random_x_loop_result = random_x_loop_result;
-            row.random_y_loop_result = random_y_loop_result;
-            row.z_ackley_result = z_ackley_result;
-            points.push_back(row);
-
-            for (int k = 1; k < points.size(); k++) {
-            if (points[k].z_ackley_result < points[smallestIndex].z_ackley_result) {
-                smallestIndex = k;
-            }
-        }
-
-        std::ofstream saved_xyz_file("saved_xyz_coordinates.txt", std::ios::app);
-        
-        double x_coordinate_for_txt_file = points[smallestIndex].random_x_loop_result;
-        double y_coordinate_for_txt_file = points[smallestIndex].random_y_loop_result;
-        double z_coordinate_for_txt_file = smallestIndex;
-        saved_xyz_file << x_coordinate_for_txt_file << " " << y_coordinate_for_txt_file << " " << z_coordinate_for_txt_file << " " <<std::endl;
-        saved_xyz_file.close();
-
-    }    
+        double z_ackley_result = ackleyfunctioncalculator(random_x_loop_result, random_y_loop_result);
+        std::cout << "this is the final z result: " << z_ackley_result << std::endl;
+        struct_computed_xyz_value_storage row;
+        row.random_x_loop_result = random_x_loop_result;
+        row.random_y_loop_result = random_y_loop_result;
+        row.z_ackley_result = z_ackley_result;
+        points.push_back(row);
 
     }
+    
+    for (int k = 0; k < points.size(); k++) {
+        if (k == 0 || points[k].z_ackley_result < points[smallestIndex].z_ackley_result) {
+            smallestIndex = k;
+            std::cout << "smallest point is: " << points[smallestIndex].z_ackley_result << "\n";
+        }
+        else {
+            std::cout << "point not small enough :0" "\n";
+        }
+
+    }
+
+    std::ofstream saved_xyz_file("saved_xyz_coordinates.txt", std::ios::app);
+    double x_coordinate_for_txt_file = points[smallestIndex].random_x_loop_result;
+    double y_coordinate_for_txt_file = points[smallestIndex].random_y_loop_result;
+    double z_coordinate_for_txt_file = points[smallestIndex].z_ackley_result;
+    saved_xyz_file << x_coordinate_for_txt_file << " " << y_coordinate_for_txt_file << " " << z_coordinate_for_txt_file << " " <<std::endl;
+    saved_xyz_file.close();
 
     std::cout << "this is the final smallest number in the z value vector: " << points[smallestIndex].z_ackley_result << std:: endl;
     std::cout << "file successfully saved: " << std::endl;
@@ -120,7 +121,7 @@ int main() {
     {
         
         std::cout << computed_z_value_storage[i]<< " ";
-    }
+    }s
     
     */
 
