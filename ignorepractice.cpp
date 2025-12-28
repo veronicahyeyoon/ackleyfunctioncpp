@@ -50,14 +50,14 @@ double random_y_coordinates_generator() {
     //std::cout << "this is the randomly generated add_to_x: " << add_to_x << std::endl;
     //std::cout << "this is the randomly generated add_to_y: " << add_to_y << std::endl;
     
-    double new_y_for_ackleyfunction = random_y_value_storage[1] + add_to_y;
+    double new_y_for_ackleyfunction = random_y_value_storage[0] + add_to_y;
 
     std::cout << "this is the randomly generated final y value: " << new_y_for_ackleyfunction << std::endl;
 
     return new_y_for_ackleyfunction;
 }
 
-double ackleyfunctioncalculator() {
+double ackleyfunctioncalculator(double new_x_for_ackleyfunction, double new_y_for_ackleyfunction) {
     /*
     this for loop gives the vector (what's in it at this point???)
     for (int i = 0; i < random_x_y_value_storage.size(); i++) {
@@ -67,11 +67,8 @@ double ackleyfunctioncalculator() {
     std::cout << "this is the randomly generated y: " << y << std::endl;
     */
 
-    double x = random_x_coordinates_generator();
-    double y = random_y_coordinates_generator();
-
-    double a= -0.2*(sqrt((x*x+y*y)/2));
-    double b= (std::cos(2*std::acos(-1)*x)+std::cos(2*std::acos(-1)*y))/2;
+    double a= -0.2*(sqrt((new_x_for_ackleyfunction*new_x_for_ackleyfunction+new_y_for_ackleyfunction*new_y_for_ackleyfunction)/2));
+    double b= (std::cos(2*std::acos(-1)*new_x_for_ackleyfunction)+std::cos(2*std::acos(-1)*new_y_for_ackleyfunction))/2;
     double z = -20*std::exp(a)-std::exp(b)+20+std::exp(1);
 
     return z;
@@ -79,8 +76,7 @@ double ackleyfunctioncalculator() {
 
 int main() {
     std::vector<struct_computed_xyz_value_storage> points;
-    std::vector<double> vector_computed_xyz_value_storage;
-
+    //std::vector<double> vector_computed_xyz_value_storage;
     double previous_smallest_z;
     double smallestIndex = 0;
 
@@ -91,7 +87,7 @@ int main() {
         //std::cout << "this is the y result: " << random_y_loop_result << std::endl;
 
         for (int j = 0; j < 5; j++) {
-            double z_ackley_result = ackleyfunctioncalculator();
+            double z_ackley_result = ackleyfunctioncalculator(random_x_loop_result, random_y_loop_result);
             std::cout << "this is the final z result: " << z_ackley_result << std::endl;
             struct_computed_xyz_value_storage row;
             row.random_x_loop_result = random_x_loop_result;
@@ -99,16 +95,16 @@ int main() {
             row.z_ackley_result = z_ackley_result;
             points.push_back(row);
 
-            for (int k = 1; k < vector_computed_xyz_value_storage.size(); k++) {
-            if (vector_computed_xyz_value_storage[i] < vector_computed_xyz_value_storage[smallestIndex]) {
+            for (int k = 1; k < points.size(); k++) {
+            if (points[i].z_ackley_result < points[smallestIndex]) {
                 smallestIndex = k;
             }
         }
 
         std::ofstream saved_xyz_file("saved_xyz_coordinates.txt", std::ios::app);
         
-        double x_coordinate_for_txt_file = vector_computed_xyz_value_storage[0];
-        double y_coordinate_for_txt_file = vector_computed_xyz_value_storage[1];
+        double x_coordinate_for_txt_file = struct_computed_xyz_value_storage[0];
+        double y_coordinate_for_txt_file = struct_computed_xyz_value_storage[1];
         double z_coordinate_for_txt_file = smallestIndex;
         saved_xyz_file << x_coordinate_for_txt_file << " " << y_coordinate_for_txt_file << " " << z_coordinate_for_txt_file << " " <<std::endl;
         saved_xyz_file.close();
