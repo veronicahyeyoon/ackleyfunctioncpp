@@ -78,7 +78,7 @@ int main() {
     std::vector<struct_computed_xyz_value_storage> points;
     //std::vector<double> vector_computed_xyz_value_storage;
     double previous_smallest_z;
-    double smallestIndex = 0;
+    int smallestIndex = 0;
 
     for (int i = 0; i < 5; i++) {
         double random_x_loop_result = random_x_coordinates_generator();
@@ -96,15 +96,15 @@ int main() {
             points.push_back(row);
 
             for (int k = 1; k < points.size(); k++) {
-            if (points[i].z_ackley_result < points[smallestIndex]) {
+            if (points[k].z_ackley_result < points[smallestIndex].z_ackley_result) {
                 smallestIndex = k;
             }
         }
 
         std::ofstream saved_xyz_file("saved_xyz_coordinates.txt", std::ios::app);
         
-        double x_coordinate_for_txt_file = struct_computed_xyz_value_storage[0];
-        double y_coordinate_for_txt_file = struct_computed_xyz_value_storage[1];
+        double x_coordinate_for_txt_file = points[smallestIndex].random_x_loop_result;
+        double y_coordinate_for_txt_file = points[smallestIndex].random_y_loop_result;
         double z_coordinate_for_txt_file = smallestIndex;
         saved_xyz_file << x_coordinate_for_txt_file << " " << y_coordinate_for_txt_file << " " << z_coordinate_for_txt_file << " " <<std::endl;
         saved_xyz_file.close();
@@ -113,7 +113,7 @@ int main() {
 
     }
 
-    std::cout << "this is the final smallest number in the z value vector: " << vector_computed_xyz_value_storage[smallestIndex] << std:: endl;
+    std::cout << "this is the final smallest number in the z value vector: " << points[smallestIndex].z_ackley_result << std:: endl;
     std::cout << "file successfully saved: " << std::endl;
     /*
     for (int i = 0; i < computed_z_value_storage.size(); i++)
