@@ -1,4 +1,4 @@
-//some sort of description
+//this is the C++ file for generating a txt file with x,y,z coordinates of Ackley function
 //required imports here
 #include <iostream>
 #include <string>
@@ -18,8 +18,6 @@ double random_coordinates_generator() {
 
     std::uniform_real_distribution<double> random_big_dist(0.0, 10.0);
     double number_randomly_generated = random_big_dist(gen);
-    //std::cout << "this is the randomly generated final number: " << number_randomly_generated << "\n";
-
     return number_randomly_generated;
 }
 
@@ -28,8 +26,6 @@ double random_add_to_coordinates_generator() {
 
     std::uniform_real_distribution<double> random_big_dist(-1.0, +1.0);
     double add_to_number_randomly_generated = random_big_dist(gen);
-    //std::cout << "this is the randomly generated final add_to_number: " << add_to_number_randomly_generated << "\n";
-
     return add_to_number_randomly_generated;
 }
 
@@ -55,6 +51,7 @@ int main() {
     std::cout << "Thanks for answering " << how_do_you_do<< std::endl;
     std::cout << "Now let's actually begin :)" "\n";
 
+    //intial random coordinate generated & saved, set to best_coordinate
     double random_x_result = random_coordinates_generator();
     double random_y_result = random_coordinates_generator();
     double random_add_to_x_result = random_add_to_coordinates_generator();
@@ -71,11 +68,13 @@ int main() {
 
     std::cout << "this is the first coordinate's z value: " << z_ackley_result << "\n";
     
-    
+    //outer for loop running 100 times, saves coordinate for each iteration
     for (int iteration = 0; iteration < 100; iteration++) {
         struct_computed_xyz_value_storage iteration_best_coordinate_so_far;
         bool is_this_best_coordinate_so_far = false;
         
+        //inner for loop generating 5 random children coordinates from best_coordinate
+        //compares 5 random children coordinates and picks the smallest to reset to best_coordinate
         for (int iter = 0; iter < 5; iter++) {
             double new_add_to_x_result = random_add_to_coordinates_generator();
             double new_add_to_y_result = random_add_to_coordinates_generator();
@@ -97,6 +96,7 @@ int main() {
     }
         best_coordinate_choice_so_far = iteration_best_coordinate_so_far;
 
+        //saves best_coordinate per iteration to txt file
         saved_xyz_file << best_coordinate_choice_so_far.final_x_coordinate_value << " "
                         << best_coordinate_choice_so_far.final_y_coordinate_value << " "
                         << best_coordinate_choice_so_far.z_ackley_result << "\n";
