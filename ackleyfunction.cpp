@@ -72,7 +72,7 @@ int main() {
     std::cout << "this is the first coordinate's z value: " << z_ackley_result << "\n";
     
     
-    for (int iteration = 0; iteration < 250; iteration++) {
+    for (int iteration = 0; iteration < 100; iteration++) {
         struct_computed_xyz_value_storage iteration_best_coordinate_so_far;
         bool is_this_best_coordinate_so_far = false;
         
@@ -94,7 +94,6 @@ int main() {
                 is_this_best_coordinate_so_far = true;
             }
             
-
     }
         best_coordinate_choice_so_far = iteration_best_coordinate_so_far;
 
@@ -107,7 +106,6 @@ int main() {
     saved_xyz_file.close();
     std::cout << "this is the final smallest number in the z value vector: " << best_coordinate_choice_so_far.z_ackley_result << "\n";
     std::cout << "file successfully saved :0 " << std::endl;
-
 
 return 0;
 
