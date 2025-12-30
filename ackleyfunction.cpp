@@ -68,7 +68,7 @@ int main() {
 
     std::cout << "this is the first coordinate's z value: " << z_ackley_result << "\n";
     
-    //outer for loop running 100 times, saves coordinate for each iteration
+    //outer for loop running 25 times, saves coordinate for each iteration
     for (int iteration = 0; iteration < 25; iteration++) {
         struct_computed_xyz_value_storage iteration_best_coordinate_so_far;
         bool is_this_best_coordinate_so_far = false;

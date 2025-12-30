@@ -8,7 +8,7 @@ $f(x) = -a \exp(-b\sqrt(\frac{1}{n}\sum_{i=1}^d x_i^2))-\exp(\frac{1}{d}\sum_{i=
 
 where recommended parameters are __$a=20$__, __$b=0.2$__, and __$c=2\pi$__, which are what this code uses.
 
-![](./optimal%20mimimum%20point.gif)
+![](./resources/minpoint.gif)
 
 ## explanations for modules & cells
 
